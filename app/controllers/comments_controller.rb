@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, except: [:create]
 
   def edit
-    @comment = Comment.find(params[:id])
+    @blog_post = BlogPost.find(@comment.blog_post_id)
   end
 
   def create
@@ -19,7 +19,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to blog_post_path(@comment.blog_post_id), notice: "Comment was updated successfully!"}
@@ -30,7 +29,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
     @comment.destroy
 
     respond_to do |format|
